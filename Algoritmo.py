@@ -3,7 +3,7 @@ import os
 import time
 from os import system
 
-folder = 'C:\\Users\\HP\\Documents\\IA-Tarea3\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'C:\\Users\\HP\\Documents\\IA-PIA\\IA- PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
 
 system("cls")   #   LIMPIA LA TERMINAL
@@ -12,25 +12,30 @@ system("cls")   #   LIMPIA LA TERMINAL
 def asignar_Instancias(filename):
    print('____________________________________________________'+filename+' ____________________________________________________')
    nodo = []
-   peso = []
-   beneficio = []
-   capacidad = []
-   n = 0
+   subtema = []
+   tarea = []
+   duracion = []
+   valor = []
+   obligatorio = []
+   requerimiento1 = []
+   requerimiento2 = []
+   n = 1
    with open(folder+ 'low-dimensional\\' + filename, 'rt') as f:
       reader = csv.reader(f)
-      peso.append("0")
-      beneficio.append("0")
       nodo.append(n)
       for row in reader:
          if(len(row)>0):
             if(row[0] != ''):
                n += 1
                nodo.append(n)
-               peso.append(row[0])
-               beneficio.append(row[1])
-               if(row[2] != ''):
-                capacidad.append(row[2])
-   return(list([nodo, peso, beneficio, capacidad]))
+               subtema.append(row[2])
+               tarea.append(row[3])
+               duracion.append(row[4])
+               valor.append(row[5])
+               obligatorio.append(row[9])
+               requerimiento1.append(row[7])
+               requerimiento2.append(row[8])
+   return(list([nodo, subtema, tarea, duracion, valor, obligatorio, requerimiento1, requerimiento2]))
 
 #OBTENER f(x) = h(x) + g(x)
 def beneficio_peso(datos):
