@@ -51,7 +51,7 @@ def beneficio_peso(datos):
 #SE REALIZA EL ALGORITMO
 def algoritmo(valor_h, datos):
     
-    nodos_Factibles = []
+    actividades = []
     nodos = datos[0]
     valorTotal = 0
     duracionTotal = 0
