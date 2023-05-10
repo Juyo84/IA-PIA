@@ -3,8 +3,12 @@ import os
 import time
 from os import system
 
-folder = 'C:\\Users\\HP\\Documents\\IA-PIA\\IA- PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'D:\\GitHub\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
+tareasRealizar = []
+valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+duracionSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+carreo = [0, 0, 0, 0, 0, 0, 0, 0]
 
 system("cls")   #   LIMPIA LA TERMINAL
 
@@ -40,46 +44,32 @@ def asignar_Instancias(filename):
 def algoritmo(datos):
     
     subtemaA = 0
-    tareasRealizar = []
-    valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
-    duracionSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+    #tareasRealizar = []
+    #valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+    #duracionSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+
+    for tareaID in range(0, 88, 1):
+        if(datos[5][tareaID] == 1):
+            agregarRequisito(tareaID)
+
+            carreo = [0, 0, 0, 0, 0, 0, 0, 0]
 
     for subtemaID in range(1, 9, 1):
-
-        for tareaID in range(1, 12, 1):
-
-            if(datos[5][tareaID + subtemaA - 1] == 1):
-
-                tareasRealizar.append(tareaID + subtemaA)
-                valorSubtema[datos[1][tareaID + subtemaA- 1] - 1] += datos[4][tareaID + subtemaA - 1]
-                duracionSubtema[datos[1][tareaID + subtemaA- 1] - 1] += datos[3][tareaID + subtemaA - 1]
-
-                if(datos[6][tareaID + subtemaA - 1] != 0):
-
-                    tareasRealizar.append(datos[6][tareaID + subtemaA - 1])
-                    valorSubtema[datos[1][datos[6][tareaID + subtemaA- 1]] - 1] += datos[4][datos[6][tareaID + subtemaA - 1]]
-                    duracionSubtema[datos[1][datos[6][tareaID + subtemaA- 1]] - 1] += datos[3][datos[6][tareaID + subtemaA - 1]]
-                    
-                if(datos[7][tareaID + subtemaA - 1] != 0):
-
-                    tareasRealizar.append(datos[7][tareaID + subtemaA - 1])
-                    valorSubtema[datos[1][datos[7][tareaID + subtemaA]] - 1] += datos[4][datos[7][tareaID + subtemaA - 1]]
-                    duracionSubtema[datos[1][datos[7][tareaID + subtemaA]] - 1] += datos[3][datos[7][tareaID + subtemaA - 1]]
-
         for tareaF in range(1, 12, 1):
 
             if(valorSubtema[subtemaID - 1] >= 70):
 
-                tareaF = 12
+                break
 
             else:
                 
+                #Revisar que esa Tarea no esté dentro con anterioridad.
                 if((tareaF + subtemaA) not in tareasRealizar):
 
-                    tareasRealizar.append(tareaF + subtemaA)
-                    valorSubtema[subtemaID - 1] += datos[4][tareaF + subtemaA - 1]
-                    duracionSubtema[subtemaID - 1] += datos[3][tareaF + subtemaA - 1]
+                    if(checarRequisito(tareaF + subtemaA - 1) == True):
+                        agregarRequisito(tareaF + subtemaA - 1)
 
+                    carreo = [0, 0, 0, 0, 0, 0, 0, 0]
         subtemaA += 11
 
     print(valorSubtema)
@@ -87,6 +77,43 @@ def algoritmo(datos):
     print(tareasRealizar)
     
 start_time = time.time()
+
+
+def checarRequisito(tarea):
+    check1 = True
+    check2 = True
+
+    if((tarea + 1) in tareasRealizar):
+        return True
+    else:
+        if((valorSubtema[datos[1][tarea] - 1] + datos[4][tarea] + carreo[datos[1][tarea] - 1]) >= 100 or 
+           valorSubtema[datos[1][tarea] - 1] >= 70):
+            return False
+        else:
+            carreo[datos[1][tarea] - 1] += datos[4][tarea]
+
+            if(datos[6][tarea] != 0):
+                check1 = checarRequisito(datos[6][tarea] - 1)
+            if(datos[7][tarea] != 0):
+                check2 = checarRequisito(datos[7][tarea] - 1)
+
+            if(check1 and check2):
+                return True
+            else:
+                return False
+
+def agregarRequisito(tarea):
+
+    if((tarea + 1) not in tareasRealizar):
+        if(datos[6][tarea] != 0):
+            agregarRequisito(datos[6][tarea] - 1)
+        if(datos[7][tarea] != 0):
+            agregarRequisito(datos[7][tarea] - 1)
+
+        tareasRealizar.append(tarea)
+        valorSubtema[datos[1][tarea] - 1] += datos[4][tarea]
+        duracionSubtema[datos[1][tarea] - 1] += datos[3][tarea]
+
 
 #REALIZA n ITERACIONES
 for iteraciones in range(0,1,1):
@@ -104,6 +131,10 @@ for iteraciones in range(0,1,1):
             #      + str(resultado[2]))
             
             datos = []
+            tareasRealizar = []
+            valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+            duracionSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
+            carreo = [0, 0, 0, 0, 0, 0, 0, 0]
 
 runtime = time.time() - start_time
 print("Runtime: " + str("{:.15f}".format(runtime)) + "\n")
