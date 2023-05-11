@@ -1,1 +1,2 @@
-d
+
+    tareasRealizar.sort()

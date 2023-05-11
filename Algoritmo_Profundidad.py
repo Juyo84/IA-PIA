@@ -119,7 +119,7 @@ def agregarRequisito(tarea):
 for iteraciones in range(0,1,1):
     
     for filename in os.listdir(folder + 'low-dimensional\\'):
-        if filename.endswith("i_1_2.csv"):
+        if filename.endswith(".csv"):
             nombre = filename.split('_')
             datos = asignar_Instancias(filename)    #  PASAMOS LAS INSTANCIAS A UNA VARIABLE
             
