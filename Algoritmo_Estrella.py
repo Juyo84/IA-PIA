@@ -3,7 +3,7 @@ import os
 import time
 from os import system
 
-folder = 'C:\\Users\\User\\OneDrive - uanl.edu.mx\\Documents\\Archivos FCFM\\Actividades\\6° Sem\\IA\\IA_PIA\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'C:\\Users\\HP\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
 tareasRealizar = []
 valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -73,13 +73,8 @@ def algoritmo(datos):
             carreo = [0, 0, 0, 0, 0, 0, 0, 0]
         
         subtemaA += 11
-
-
-
     tareasRealizar.sort()
-    print(valorSubtema)
-    print(duracionSubtema)
-    print(tareasRealizar)
+    return(list([valorSubtema, duracionSubtema, tareasRealizar]))
     
 start_time = time.time()
 
@@ -130,17 +125,29 @@ def agregarRequisito(tarea):
 for iteraciones in range(0,1,1):
     
     for filename in os.listdir(folder + 'low-dimensional\\'):
-        if filename.endswith("i_1_2.csv"):
+        if filename.endswith(".csv"):
             nombre = filename.split('_')
             datos = asignar_Instancias(filename)    #  PASAMOS LAS INSTANCIAS A UNA VARIABLE
             
             resultado = algoritmo(datos)
             
-            #SE IMPRIME LOS RESULTADOS
-            #print("-------------------------------------------------------------------------")
-            #print("Capacidad: " + str("{:.4f}".format(resultado[0])) + "      Beneficio: " + str("{:.4f}".format(resultado[1])) + "       Nodos: "
-            #      + str(resultado[2]))
+            print("Valores de Semestre")
+            for valorSub in range(1,9,1):
+                
+                print(str(valorSub) + ": " + str(resultado[0][valorSub - 1]) + " ", end="")
+
+            print("\nDuracion de Semestre")
+            for duracionSub in range(1,9,1):
+                
+                print(str(duracionSub) + ": " + str(resultado[1][duracionSub - 1]) + " ", end="")
+
+            print("\nTareas a Realizar")
+            for tareasSub in range(0,len(resultado[2]) - 1,1):
+                
+                print(str(resultado[2][tareasSub]) + ", ", end="")
             
+            print(str(resultado[2][tareasSub + 1]))
+
             datos = []
             tareasRealizar = []
             valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
