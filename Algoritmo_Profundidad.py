@@ -3,7 +3,7 @@ import os
 import time
 from os import system
 
-folder = 'D:\\GitHub\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'C:\\Users\\HP\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
 tareasRealizar = []
 valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -72,6 +72,7 @@ def algoritmo(datos):
                     carreo = [0, 0, 0, 0, 0, 0, 0, 0]
         subtemaA += 11
 
+    tareasRealizar.sort()
     print(valorSubtema)
     print(duracionSubtema)
     print(tareasRealizar)
@@ -86,7 +87,7 @@ def checarRequisito(tarea):
     if((tarea + 1) in tareasRealizar):
         return True
     else:
-        if((valorSubtema[datos[1][tarea] - 1] + datos[4][tarea] + carreo[datos[1][tarea] - 1]) >= 100 or 
+        if((datos[4][tarea] + carreo[datos[1][tarea] - 1]) >= 100 or 
            valorSubtema[datos[1][tarea] - 1] >= 70):
             return False
         else:
@@ -110,16 +111,15 @@ def agregarRequisito(tarea):
         if(datos[7][tarea] != 0):
             agregarRequisito(datos[7][tarea] - 1)
 
-        tareasRealizar.append(tarea)
+        tareasRealizar.append(tarea + 1)
         valorSubtema[datos[1][tarea] - 1] += datos[4][tarea]
         duracionSubtema[datos[1][tarea] - 1] += datos[3][tarea]
-
 
 #REALIZA n ITERACIONES
 for iteraciones in range(0,1,1):
     
     for filename in os.listdir(folder + 'low-dimensional\\'):
-        if filename.endswith(".csv"):
+        if filename.endswith("i_1_2.csv"):
             nombre = filename.split('_')
             datos = asignar_Instancias(filename)    #  PASAMOS LAS INSTANCIAS A UNA VARIABLE
             
