@@ -72,7 +72,6 @@ def algoritmo(datos):
                     carreo = [0, 0, 0, 0, 0, 0, 0, 0]
         subtemaA += 11
 
-    tareasRealizar.sort()
     return(list([valorSubtema, duracionSubtema, tareasRealizar]))
     
 start_time = time.time()
