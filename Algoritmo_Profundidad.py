@@ -3,7 +3,7 @@ import os
 import time
 from os import system
 
-folder = 'C:\\Users\\HP\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'C:\\Users\\User\\OneDrive - uanl.edu.mx\\Documents\\Archivos FCFM\\Actividades\\6° Sem\\IA\\IA_PIA\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
 tareasRealizar = []
 valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]

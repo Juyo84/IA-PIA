@@ -3,13 +3,14 @@ import os
 import time
 from os import system
 
-folder = 'C:\\Users\\HP\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
+folder = 'C:\\Users\\User\\OneDrive - uanl.edu.mx\\Documents\\Archivos FCFM\\Actividades\\6° Sem\\IA\\IA_PIA\\IA-PIA\\'    #   DIRECCION DEL FOLDER "\\low-dimensional"
 datos = []
 tareasRealizar = []
 valorSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
 duracionSubtema = [0, 0, 0, 0, 0, 0, 0, 0]
 carreo = [0, 0, 0, 0, 0, 0, 0, 0]
 tareasH = []
+tareasM = []
 
 system("cls")   #   LIMPIA LA TERMINAL
 
@@ -57,11 +58,11 @@ def algoritmo(datos):
 
     for subtemaID in range(1, 9, 1): 
 
-        while(valorSubtema[subtemaID - 1] <= 70):              
+        while(valorSubtema[subtemaID - 1] < 70):              
             min = 100
             for tareaF in range(1, 12, 1):
             
-                if((tareaF + subtemaA) not in tareasRealizar):
+                if((tareaF + subtemaA) not in tareasRealizar and (tareaF + subtemaA) not in tareasM):
             
                     if(tareasH[tareaF + subtemaA -1]<= min):
                         min = tareasH[tareaF + subtemaA -1]
@@ -69,7 +70,7 @@ def algoritmo(datos):
             if(checarRequisito(x) == True):
                 agregarRequisito(x)
 
-                carreo = [0, 0, 0, 0, 0, 0, 0, 0]
+            carreo = [0, 0, 0, 0, 0, 0, 0, 0]
         
         subtemaA += 11
 
@@ -96,8 +97,8 @@ def checarRequisito(tarea):
     if((tarea + 1) in tareasRealizar):
         return True
     else:
-        if((datos[4][tarea] + carreo[datos[1][tarea] - 1]) >= 100 or 
-           valorSubtema[datos[1][tarea] - 1] >= 70):
+        if((datos[4][tarea] + carreo[datos[1][tarea] - 1]) > 100 or 
+           valorSubtema[datos[1][tarea] - 1] > 70):
             return False
         else:
             carreo[datos[1][tarea] - 1] += datos[4][tarea]
@@ -110,6 +111,7 @@ def checarRequisito(tarea):
             if(check1 and check2):
                 return True
             else:
+                tareasM.append(tarea + 1)
                 return False
 
 def agregarRequisito(tarea):
@@ -128,7 +130,7 @@ def agregarRequisito(tarea):
 for iteraciones in range(0,1,1):
     
     for filename in os.listdir(folder + 'low-dimensional\\'):
-        if filename.endswith(".csv"):
+        if filename.endswith("i_1_2.csv"):
             nombre = filename.split('_')
             datos = asignar_Instancias(filename)    #  PASAMOS LAS INSTANCIAS A UNA VARIABLE
             
